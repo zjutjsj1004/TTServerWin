@@ -47,7 +47,7 @@ void CConfigFileReader::_LoadFile(const char* filename)
 	char buf[256];
 	for (;;)
 	{
-		char* p = fgets(buf, 256, fp);
+		char* p = fgets(buf, 256, fp); //从文件结构体指针stream中读取数据，每次读取一行
 		if (!p)
 			break;
 
@@ -55,7 +55,7 @@ void CConfigFileReader::_LoadFile(const char* filename)
 		if (buf[len - 1] == '\n')
 			buf[len - 1] = 0;			// remove \n at the end
 
-		char* ch = strchr(buf, '#');	// remove string start with #
+		char* ch = strchr(buf, '#');	// remove string start with #  strchr查找字符串s中首次出现字符#的位置
 		if (ch)
 			*ch = 0;
 
