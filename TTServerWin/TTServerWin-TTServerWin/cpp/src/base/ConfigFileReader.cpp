@@ -3,6 +3,7 @@
  *
  *  Created on: 2013-7-2
  *      Author: ziteng@mogujie.com
+    解析配置文件的类
  */
 
 

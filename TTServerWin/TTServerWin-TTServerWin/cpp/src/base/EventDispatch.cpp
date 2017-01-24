@@ -166,6 +166,7 @@ void CEventDispatch::StartDispatch()
 		memcpy(&excep_set, &m_excep_set, sizeof(fd_set));
 		m_lock.Unlock();
 
+        //select函数返回那些准备好并且包含在fd_set结构体的套接字的总数
 		int nfds = select(0, &read_set, &write_set, &excep_set, &timeout);
 
 		if (nfds == SOCKET_ERROR)

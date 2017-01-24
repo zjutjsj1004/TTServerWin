@@ -2,7 +2,8 @@
  * file_server.cpp
  *
  *  Created on: 2013-12-9
- *      Author: ziteng@mogujie.com
+ *  Author: ziteng@mogujie.com
+ *  file_server的功能是提供给用户传输文件使用。同时也存储用户传输的离线文件
  */
 
 #include "FileConn.h"

@@ -29,7 +29,7 @@ public:
 	int SendPdu(CImPdu* pPdu) { return Send(pPdu->GetBuffer(), pPdu->GetLength()); }
 	int Send(void* data, int len);
 
-	virtual void OnConnect(net_handle_t handle) { m_handle = handle; }
+	virtual void OnConnect(net_handle_t handle) { m_handle = handle; } //向服务器发出连接请求
 	virtual void OnConfirm() {}
 	virtual void OnRead();
 	virtual void OnWrite();

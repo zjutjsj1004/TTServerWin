@@ -6,8 +6,12 @@
  *   @       Email         :  bluefoxah@gmail.com
  *   @       Date           :  2014年7月29日
  *   @       Version     :   1.0
- *   @  Description	:
- *
+ *   @  Description	:msfs  是小文件存储系统，主要是用来保存用户头像以及聊天中产生的图片、语音等小文件。msfs 提供的一个简单的http服务
+     msfs在启动的时候，会在该目录下产生256个目录，每个目录下面再产生256个子目录。
+     FileCnt用来记录已经存储的文件数目,该配置在msfs关闭的时候会被程序重写。
+     FilesPerDir每个目录下面最多保存多少个小文件，GetThreadCount获取小文件的线程数目，PostThreadCount上传小文件的线程数目。
+     建议GetThreadCount + PostThreadCount = 内核数目，GetThreadCount >= PostThreadCount。
+     所以msfs总共可以存储的文件数目为:256*256*FilesPerDir
  ================================================================*/
 
 #include <iostream>

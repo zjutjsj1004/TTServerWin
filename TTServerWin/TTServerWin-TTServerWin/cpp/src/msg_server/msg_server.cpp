@@ -3,6 +3,12 @@
  *
  *  Created on: 2013-6-21
  *      Author: ziteng@mogujie.com
+ msg_server的配置相对来说比较复杂，该服务端也是最复杂的一个，其与login_server，route_server，db_proxy保持通信。其负责整个TeamTalk的整个核心通信功能
+ 客户端连接服务器（N台）。客户端通过msg_server登陆，保持长连接。 
+ 1、msg_server 启动后会去主动连接login_server，并通过数据包CImPduMsgServInfo向login_server注册自己的信息。其处理逻辑在LoginServConn.cpp中: void CLoginServConn::OnConfirm()
+ 2、当有用户连接上msg_server并登录成功或者用户断开连接的时候，会向login_server发送一个CImPduUserCntUpdate数据包通知login_server，login_server收到后，修改对应msg_server的负载值。
+ 3、当有用户连接上msg_server并登录成功或者用户断开连接的时候，会向route_server发送一个CImPduUserStatusUpdate数据包通知route_server，route_server记录用户的msg_server。
+ 4、msg_server 启动后会去主动连接route_server，并通过数据包CImPduOnlineUserInfo向route_server报告自己当前在线的用户情况。
  */
 
 #include "netlib.h"
@@ -23,7 +29,7 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 	if (msg == NETLIB_MSG_CONNECT)
 	{
 		CMsgConn* pConn = new CMsgConn();
-		pConn->OnConnect(handle);
+		pConn->OnConnect(handle);////有客户端connect后，将accept后的SOCKET跟新建的CMsgConn相关联，并将SOCKET加入轮训
 	}
 	else
 	{

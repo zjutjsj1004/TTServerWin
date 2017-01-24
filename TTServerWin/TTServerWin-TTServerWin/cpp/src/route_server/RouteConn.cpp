@@ -10,6 +10,11 @@
 
 /* key: RouteConn*, value: client_type_flag */
 typedef map<CRouteConn*, uint32_t> RouteConnMap_t;
+
+/************************************************************************/
+/* UserStat_t结构体中status标识用户的状态，conns也是一个map，其保存了对应的msg_server连接，以及该连接上用户的是pc端还是移动端。
+当又用户上线的时候，msg_server会将该用户的状态发送到route_server，route_server就会在g_rs_user_map里面插入一条记录。*/
+/************************************************************************/
 typedef struct {
     uint32_t 	status;
     RouteConnMap_t  	conns;
@@ -18,7 +23,7 @@ typedef struct {
 typedef hash_map<uint32_t, UserStat_t> UserStatMap_t;
 
 static ConnMap_t g_route_conn_map;
-static UserStatMap_t g_rs_user_map;
+static UserStatMap_t g_rs_user_map;//g_rs_user_map是一个hash_map，保存了全局用户信息
 
 RouteConnMap_t* get_route_conns(uint32_t user_id)
 {

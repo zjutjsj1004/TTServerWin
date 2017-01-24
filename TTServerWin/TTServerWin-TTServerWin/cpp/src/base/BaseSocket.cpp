@@ -170,6 +170,7 @@ void CBaseSocket::OnRead()
 	}
 	else
 	{
+        //得到缓冲区中有多少个字节要被读取，然后将字节数放入b里面
 		u_long avail = 0;
 		if ( (ioctlsocket(m_socket, FIONREAD, &avail) == SOCKET_ERROR) || (avail == 0) )
 		{
@@ -177,7 +178,7 @@ void CBaseSocket::OnRead()
 		}
 		else
 		{
-			m_callback(m_callback_data, NETLIB_MSG_READ, (net_handle_t)m_socket, NULL);
+			m_callback(m_callback_data, NETLIB_MSG_READ, (net_handle_t)m_socket, NULL); //m_callback这个回调在netlib_listen设置
 		}
 	}
 }
@@ -273,7 +274,7 @@ void CBaseSocket::_SetNonblock(SOCKET fd)
 void CBaseSocket::_SetReuseAddr(SOCKET fd)
 {
 	BOOL reuse = TRUE;
-	int ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char*)&reuse, sizeof(reuse));
+	int ret = setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char*)&reuse, sizeof(reuse));//设置调用close(socket)后,仍可继续重用该socket。调用close(socket)一般不会立即关闭socket，而经历TIME_WAIT的过程。
 	if (ret == SOCKET_ERROR)
 	{
 		log("_SetReuseAddr failed, err_code=%d\n", _GetErrorCode());
@@ -283,6 +284,7 @@ void CBaseSocket::_SetReuseAddr(SOCKET fd)
 void CBaseSocket::_SetNoDelay(SOCKET fd)
 {
 	BOOL nodelay = TRUE;
+    //setsockopt：用于任意类型、任意状态套接口的设置选项值
 	int ret = setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, (char*)&nodelay, sizeof(nodelay));
 	if (ret == SOCKET_ERROR)
 	{
@@ -316,6 +318,7 @@ void CBaseSocket::_AcceptNewSocket()
 	socklen_t addr_len = sizeof(sockaddr_in);
 	char ip_str[64];
 
+    //accept:接收一个套接字中已建立的连接
 	while ( (fd = accept(m_socket, (sockaddr*)&peer_addr, &addr_len)) != INVALID_SOCKET )
 	{
 		CBaseSocket* pSocket = new CBaseSocket();

@@ -120,6 +120,7 @@ CMsgConn::~CMsgConn()
 }
 
 // must be called when the client is validated(m_bOpen=true);
+//向route_server与login_server汇报本机情况的调用在MsgConn.cpp中，在用户上线，下线的时候会调用SendUserStatusUpdate
 void CMsgConn::SendUserStatusUpdate(uint32_t user_status)
 {
     
@@ -131,6 +132,10 @@ void CMsgConn::SendUserStatusUpdate(uint32_t user_status)
         return;
     }
 
+    /************************************************************************/
+    /* 当有用户连接上msg_server并登录成功或者用户断开连接的时候，会向login_server发送一个CImPduUserCntUpdate数据包通知login_server。
+    其处理逻辑实现在LoginServConn.cpp:  void send_to_all_login_server(CImPdu* pPdu)                                                                     */
+    /************************************************************************/
 	// 只有上下线通知才通知LoginServer
 	if (user_status == USER_STATUS_ONLINE) {
 		CImPduUserCntUpdate pdu(USER_CNT_INC, pImUser->GetUserId());

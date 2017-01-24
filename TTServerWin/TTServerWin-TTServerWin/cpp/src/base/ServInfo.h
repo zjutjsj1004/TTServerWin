@@ -45,7 +45,7 @@ void serv_check_reconnect(serv_info_t* server_list, uint32_t server_count)
 			server_list[i].idle_cnt++;
 			if (server_list[i].idle_cnt >= server_list[i].reconnect_cnt) {
 				pConn = new T();
-				pConn->Connect(server_list[i].server_ip.c_str(), server_list[i].server_port, i);
+				pConn->Connect(server_list[i].server_ip.c_str(), server_list[i].server_port, i); // 向服务器发出连接请求
 				server_list[i].serv_conn = pConn;
 			}
 		}

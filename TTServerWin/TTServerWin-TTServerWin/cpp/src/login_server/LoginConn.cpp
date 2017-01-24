@@ -12,19 +12,20 @@ static ConnMap_t g_msg_serv_conn_map;
 static UserConnCntMap_t g_user_conn_cnt_map;
 static uint32_t g_total_online_user_cnt = 0;	// 并发在线总人数
 
+//保存msg_server的状态机负载
 typedef struct  {
-	string		ip_addr1;	// 网通IP
-	string		ip_addr2;	// 电信IP
-	uint16_t	port;
-	uint32_t	max_conn_cnt;
-	uint32_t	cur_conn_cnt;
-    uint32_t	cur_user_cnt;	// 当前的用户数- 由于允许用户多点登陆，cur_user_cnt != cur_conn_cnt
-	string 		hostname;	// 消息服务器的主机名
-	uint32_t	server_type;
-    UserConnCntMap_t user_cnt_map;
+	string		ip_addr1;	// 网通IP -- 由于服务器是双线所以设计有电信IP和网通IP
+	string		ip_addr2;	// 电信IP -- 由于服务器是双线所以设计有电信IP和网通IP
+	uint16_t	port;       //对应msg_server的端口
+	uint32_t	max_conn_cnt;   //保存的是msg_server中配置的最大连接数，当msg_server的连接数超过该值后，就不在分配用户过去
+	uint32_t	cur_conn_cnt;   //对应msg_server当前的连接数
+    uint32_t	cur_user_cnt;	// 当前的用户数- 由于允许用户多点登陆，cur_user_cnt != cur_conn_cnt,就像注释说的那样，由于可以多点登陆，所以当前用户数<=当前连接数
+	string 		hostname;	// 消息服务器的主机名, 也就是msg_server的hostname
+    uint32_t	server_type; // 标记msg_server网络类型，目前只有一个定义Tcp Server，在ImPduServer.h中定义:enum { MSG_SERVER_TYPE_TCP = 1,  };
+    UserConnCntMap_t user_cnt_map; //是一个hash_map用来保存用户id以及对应的用户数量
 } msg_serv_info_t;
 
-static map<uint32_t, msg_serv_info_t*> g_msg_serv_info;
+static map<uint32_t, msg_serv_info_t*> g_msg_serv_info;//g_msg_serv_info是一个hash_map用来保存msg_server。其key是一个socket描述符，value保存的是一个结构体，包含了对应msg_server的具体信息
 
 void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {

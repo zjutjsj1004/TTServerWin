@@ -212,7 +212,7 @@ void logger(const char* fmt, ...)
 
 	va_list ap;
 	va_start(ap, fmt);
-	vfprintf(log_fp, fmt, ap);
+	vfprintf(log_fp, fmt, ap);//根据参数format字符串来转换并格式化数据，然后将结果输出到参数stream指定的文件中，直到出现字符串结束（‘\0’）为止
 	va_end(ap);
 	fflush(log_fp);
 

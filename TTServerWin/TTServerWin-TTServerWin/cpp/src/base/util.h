@@ -1,6 +1,8 @@
 #ifndef __UTIL_H__
 #define __UTIL_H__
-
+/************************************************************************/
+/* 工具类，实现多种封装类CThread（线程），CThreadLock（线程保护锁），CRefObject（引用对象类），CStrExplode（字符串解析类）                                                                     */
+/************************************************************************/
 #define _CRT_SECURE_NO_DEPRECATE	// remove warning C4996, 
 
 #include "ostype.h"

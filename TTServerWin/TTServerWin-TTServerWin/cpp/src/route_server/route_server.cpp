@@ -3,6 +3,10 @@
  *
  *  Created on: 2013-7-4
  *      Author: ziteng@mogujie.com
+ 一台消息转发服务器，客户端消息发送到msg_server。msg_server判断接收者是否在本地，是的话，直接转发给目标客户端。否的话，转发给route_server。
+ route_server接收到msg_server的消息后，获取to_id所在的msg_server，将消息转发给msg_server。msg_server再将消息转发给目标接收者。
+ 1、route_server 在整个tt中的作用是一个消息转发的地方，其在内存中维护了全局用户信息。当有多个msg_server的时候，route_server的作用就是在多个msg_server之间中转消息。
+ 2、g_rs_user_map是一个hash_map，保存了全局用户信息,当有用户上线的时候，msg_server会将该用户的状态发送到route_server，route_server就会在g_rs_user_map里面插入一条记录
  */
 
 #include "RouteConn.h"

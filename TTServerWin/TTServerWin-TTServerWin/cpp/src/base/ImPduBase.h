@@ -319,6 +319,7 @@ typedef struct {
 	uint16_t	reserved;	//
 } PduHeader_t;
 
+//定义一个基础消息格式类
 class DLL_MODIFIER CImPdu
 {
 public:

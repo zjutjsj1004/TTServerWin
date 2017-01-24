@@ -2,6 +2,7 @@
  * A socket event dispatcher, features include: 
  * 1. portable: worked both on Windows, MAC OS X,  LINUX platform
  * 2. a singleton pattern: only one instance of this class can exist
+ *  一个轮训类，处理到时回调（时间到了做回调），SOCKET
  */
 #ifndef __EVENT_DISPATCH_H__
 #define __EVENT_DISPATCH_H__

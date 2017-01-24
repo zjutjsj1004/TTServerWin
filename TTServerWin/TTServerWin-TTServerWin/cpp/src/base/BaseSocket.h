@@ -1,5 +1,6 @@
 /*
  *  a wrap for non-block socket class for Windows, LINUX and MacOS X platform
+ 实现socket的封装类
  */
 
 #ifndef __SOCKET_H__

@@ -4,7 +4,9 @@
  *  Created on: 2013-8-27
  *      Author: ziteng@mogujie.com
  */
-
+/************************************************************************/
+/* 包含动态增长的BUF类CSimpleBuffer，Byte的BUF类CByteStream               */
+/************************************************************************/
 #ifndef UTILPDU_H_
 #define UTILPDU_H_
 
