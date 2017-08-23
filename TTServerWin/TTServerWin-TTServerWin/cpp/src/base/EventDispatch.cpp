@@ -37,6 +37,10 @@ CEventDispatch::~CEventDispatch()
 #endif
 }
 
+/************************************************************************/
+/* 添加的时候会先检查对应的定时器是否已经存在，存在的话更新定时时间和间隔，
+   不存在的话新建对象并加入到List中，至此定时器已经注册完成             */
+/************************************************************************/
 void CEventDispatch::AddTimer(callback_t callback, void* user_data, uint64_t interval)
 {
 	list<TimerItem*>::iterator it;
@@ -109,7 +113,7 @@ void CEventDispatch::AddEvent(SOCKET fd, uint8_t socket_event)
 
 	if ((socket_event & SOCKET_READ) != 0)
 	{
-		FD_SET(fd, &m_read_set);
+		FD_SET(fd, &m_read_set);//FD_SET:用于在文件描述符集合中增加一个新的文件描述符(SOCKET句柄，文件，命名管道或设备句柄等)，注意集合最多只有64个文件描述符
 	}
 		
 	if ((socket_event & SOCKET_WRITE) != 0)
@@ -119,7 +123,7 @@ void CEventDispatch::AddEvent(SOCKET fd, uint8_t socket_event)
 
 	if ((socket_event & SOCKET_EXCEP) != 0)
 	{
-		FD_SET(fd, &m_excep_set);
+		FD_SET(fd, &m_excep_set); 
 	}
 }
 
@@ -129,7 +133,7 @@ void CEventDispatch::RemoveEvent(SOCKET fd, uint8_t socket_event)
 
 	if ((socket_event & SOCKET_READ) != 0)
 	{
-		FD_CLR(fd, &m_read_set);
+		FD_CLR(fd, &m_read_set); //FD_CLR:用于在文件描述符集合中删除一个文件描述符
 	}
 
 	if ((socket_event & SOCKET_WRITE) != 0)
@@ -166,7 +170,15 @@ void CEventDispatch::StartDispatch()
 		memcpy(&excep_set, &m_excep_set, sizeof(fd_set));
 		m_lock.Unlock();
 
-        //select函数返回那些准备好并且包含在fd_set结构体的套接字的总数
+        //http://blog.csdn.net/richerg85/article/details/7540152
+        // select函数返回那些准备好并且包含在fd_set结构体的套接字的总数
+        //如果超时,则返回0;如果错误发生，返回SOCKET_ERROR。如果返回值为SOCKET_ERROR，可以通过WSAGetLastError函数检索指定的错误码。
+        /*   nfds：忽略。
+             readnfds: 指向检查可读性的套接字集合的可选的指针。
+             writefds: 指向检查可写性的套接字集合的可选的指针。
+             exceptfds: 指向检查错误的套接字集合的可选的指针。
+             timeout: select函数需要等待的最长时间，需要以TIMEVAL结构体格式提供此参数，对于阻塞操作，此参数为NULL
+        */
 		int nfds = select(0, &read_set, &write_set, &excep_set, &timeout);
 
 		if (nfds == SOCKET_ERROR)

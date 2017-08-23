@@ -18,34 +18,44 @@
 extern "C" {
 #endif
 
-int netlib_init();
+int netlib_init();//初始化网络连接
 
-int netlib_destroy();
 
+int netlib_destroy(); //清除网络连接
+
+//监听连接
 int netlib_listen(	
 		const char*	server_ip, 
 		uint16_t	port,
 		callback_t	callback,
 		void*		callback_data);
 
+//建立连接
 net_handle_t netlib_connect(
 		const char*	server_ip,
 		uint16_t	port,
 		callback_t	callback,
 		void*		callback_data);
 
+//发送数据
 int netlib_send(net_handle_t handle, void* buf, int len);
 
+//接收数据
 int netlib_recv(net_handle_t handle, void* buf, int len);
 
+//关闭连接
 int netlib_close(net_handle_t handle);
 
+//获取连接信息
 int netlib_option(net_handle_t handle, int opt, void* optval);
 
+//添加定时器
 int netlib_register_timer(callback_t callback, void* user_data, uint64_t interval);
 
+//删除定时器
 int netlib_delete_timer(callback_t callback, void* user_data);
 
+//进入事件循环
 void netlib_eventloop();
 
 #ifdef __cplusplus

@@ -44,9 +44,9 @@ int netlib_register_timer(callback_t callback, void* user_data, uint64_t interva
 
 int netlib_delete_timer(callback_t callback, void* user_data);
 
-int netlib_add_loop(callback_t callback, void* user_data);
+int netlib_add_loop(callback_t callback, void* user_data); //添加事件循环
 
-void netlib_eventloop(uint32_t wait_timeout = 100);
+void netlib_eventloop(uint32_t wait_timeout = 100);//进入事件循环
 
 #ifdef __cplusplus
 }

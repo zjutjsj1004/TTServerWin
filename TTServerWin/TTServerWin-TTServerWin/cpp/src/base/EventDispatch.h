@@ -11,9 +11,9 @@
 #include "util.h"
 
 enum {
-	SOCKET_READ		= 0x1,
-	SOCKET_WRITE	= 0x2,
-	SOCKET_EXCEP	= 0x4,
+	SOCKET_READ		= 0x1, //检查可读性的套接字
+	SOCKET_WRITE	= 0x2, //可写性的套接字
+	SOCKET_EXCEP	= 0x4, //检查错误的套接字
 	SOCKET_ALL		= 0x7
 };
 
@@ -25,7 +25,7 @@ public:
 	void AddEvent(SOCKET fd, uint8_t socket_event);
 	void RemoveEvent(SOCKET fd, uint8_t socket_event);
 
-	void AddTimer(callback_t callback, void* user_data, uint64_t interval);
+	void AddTimer(callback_t callback, void* user_data, uint64_t interval);//注册了定时器回调函数和定时器间隔
 	void RemoveTimer(callback_t callback, void* user_data);
 
 	void StartDispatch();

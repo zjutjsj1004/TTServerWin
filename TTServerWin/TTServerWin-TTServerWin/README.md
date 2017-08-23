@@ -28,4 +28,6 @@ TTServer主要包含了以下几种服务器:
 TeamTalk服务端分析 三、服务端以及客户端流程:http://www.bluefoxah.org/teamtalk/server_flow.html
 TeamTalk 服务端分析 二、配置:http://www.bluefoxah.org/teamtalk/TeamTalk_Config.html
 teamtalk简介:http://blog.csdn.net/lcalqf/article/details/52885869
+teamtalk系列文章:http://blog.csdn.net/mao834099514/article/details/53896553
+心跳保活:http://blog.csdn.net/hailong0715/article/details/52620803
 

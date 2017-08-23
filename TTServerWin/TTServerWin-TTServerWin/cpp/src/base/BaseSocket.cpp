@@ -81,7 +81,7 @@ int CBaseSocket::Listen(const char* server_ip, uint16_t port, callback_t callbac
 	//log("CBaseSocket::Listen on %s:%d\n", server_ip, port);
 
 	AddBaseSocket(this);
-	CEventDispatch::Instance()->AddEvent(m_socket, SOCKET_READ | SOCKET_EXCEP);
+	CEventDispatch::Instance()->AddEvent(m_socket, SOCKET_READ | SOCKET_EXCEP); //添加一个可读性套接字和检查错误的套接字
 	return NETLIB_OK;
 }
 
