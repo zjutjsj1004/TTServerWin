@@ -20,7 +20,7 @@ typedef struct {
     RouteConnMap_t  	conns;
 } UserStat_t;
 
-typedef hash_map<uint32_t, UserStat_t> UserStatMap_t;
+typedef hash_map<uint32_t, UserStat_t> UserStatMap_t; //key是用户id
 
 static ConnMap_t g_route_conn_map;
 static UserStatMap_t g_rs_user_map;//g_rs_user_map是一个hash_map，保存了全局用户信息

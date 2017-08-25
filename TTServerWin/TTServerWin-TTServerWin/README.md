@@ -30,4 +30,7 @@ TeamTalk 服务端分析 二、配置:http://www.bluefoxah.org/teamtalk/TeamTalk
 teamtalk简介:http://blog.csdn.net/lcalqf/article/details/52885869
 teamtalk系列文章:http://blog.csdn.net/mao834099514/article/details/53896553
 心跳保活:http://blog.csdn.net/hailong0715/article/details/52620803
+TeamTalk源码分析:http://blog.csdn.net/column/details/15700.html
+蘑菇街技术博客:http://mogu.io/
+
 

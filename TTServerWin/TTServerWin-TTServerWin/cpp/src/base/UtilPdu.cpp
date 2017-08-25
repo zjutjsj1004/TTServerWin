@@ -34,7 +34,7 @@ void CSimpleBuffer::Extend(uint32_t len)
 {
 	m_alloc_size = m_write_offset + len;
 	m_alloc_size += m_alloc_size >> 2;	// increase by 1/4 allocate size
-	uchar_t* new_buf = (uchar_t*)realloc(m_buffer, m_alloc_size);
+	uchar_t* new_buf = (uchar_t*)realloc(m_buffer, m_alloc_size);//新的大小大于原内存大小，则新分配部分不会被初始化；如果新的大小小于原内存大小，可能会导致数据丢失
     if(new_buf != NULL)
     {
     	m_buffer = new_buf;
@@ -67,7 +67,7 @@ uint32_t CSimpleBuffer::Read(void* buf, uint32_t len)
 		memcpy(buf, m_buffer, len);
 
 	m_write_offset -= len;
-	memmove(m_buffer, m_buffer + len, m_write_offset);
+	memmove(m_buffer, m_buffer + len, m_write_offset); //memmove用于从src拷贝count个字节到dest，如果目标区域和源区域有重叠的话，memmove能够保证源串在被覆盖之前将重叠区域的字节拷贝到目标区域中。但复制后src内容会被更改。但是当目标区域与源区域没有重叠则和memcpy函数功能相同
 	return len;
 }
 

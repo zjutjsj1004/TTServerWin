@@ -333,7 +333,7 @@ void CBaseSocket::_AcceptNewSocket()
 		pSocket->SetSocket(fd);
 		pSocket->SetCallback(m_callback);
 		pSocket->SetCallbackData(m_callback_data);
-		pSocket->SetState(SOCKET_STATE_CONNECTED);
+		pSocket->SetState(SOCKET_STATE_CONNECTED);// 设置m_state状态为建立连接
 		pSocket->SetRemoteIP(ip_str);
 		pSocket->SetRemotePort(port);
 
