@@ -313,13 +313,13 @@ typedef struct svr_ip_addr_t{
 //////////////////////////////
 typedef struct {
 	uint32_t 	length;		// the whole pdu length
-	uint16_t	module_id;	//
-	uint16_t	command_id;	//
+	uint16_t	module_id;	// 对应业务模块ID：根据module_id会分派到相应的业务模块 http://www.jianshu.com/p/1359165bae4e
+	uint16_t	command_id;	// 命令号:对应具体的网络传输命令 http://www.jianshu.com/p/1359165bae4e
 	uint16_t 	version;	// pdu version number
 	uint16_t	reserved;	//
 } PduHeader_t;
 
-//定义一个基础消息格式类
+//定义一个基础消息格式类:协议数据单元(Protocol Data Unit)
 class DLL_MODIFIER CImPdu
 {
 public:
