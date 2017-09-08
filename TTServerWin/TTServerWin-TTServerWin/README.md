@@ -32,5 +32,6 @@ teamtalk系列文章:http://blog.csdn.net/mao834099514/article/details/53896553
 心跳保活:http://blog.csdn.net/hailong0715/article/details/52620803
 TeamTalk源码分析:http://blog.csdn.net/column/details/15700.html
 蘑菇街技术博客:http://mogu.io/
-
+mac TeamTalk开发点点滴滴之一——DDLogic框架分解 - 刀哥的技术随笔:http://www.jianshu.com/p/1359165bae4e
+teamtalk源码分析:http://blog.csdn.net/analogous_love/article/category/6901951 (好文章)
 
